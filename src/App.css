@@ -1,38 +1,116 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+.main-container{
+  display:flex;
+  align-items: center;
+  justify-content: center;
   min-height: 100vh;
+  padding: 3rem 0.5rem;
+}
+
+.pokemon-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+}
+.all-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  height: 500;
+  
+}
+.detail-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+h3 {
+  margin-bottom: 0.2rem;
+  text-transform: capitalize;
+}
+.thumb-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 0 ;
+  margin: 0.3rem;
+  border: 1px solid #efefef;
+  border-radius: 0.2rem;
+  min-width: 160px;
+  text-align: center;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.089);
+  background-color: #f8f8ff		;
+}
+.thumb-container img {
+  width: 120px;
+  height: 120px;
+  
 }
 
-.App-link {
-  color: #61dafb;
+.thumb-container small {
+ 
 }
+a:-webkit-any-link{
+color:black;
+}
+.stats{
+  display:flex;
+  border: 1px solid black;
+  border-radius: 0.2rem;
+  width: 200px;
+  height: 200px;
+  font-size: large;
+}
+.pokeDetail-container{
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  width: 200px;
+  height: 200px;
+  font-size: large;
+}
+.backButton{
+  width:45px;
+  height:25px;
+  position: relative;
+  top:50%;
+  background-color:#ff7f50;
+  color: 	#000000;
+  font-size:medium;
+  border-radius:8px;
+ text-align: center;
+ border: 0.5px solid black;
+}
+.detailsPage-content{
+  display: flex;
+  align-items: baseline;
+}
+.guess-container
+{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 0 ;
+  margin: 0.3rem;
+  border: 1px solid #efefef;
+  border-radius: 0.2rem;
+  min-width: 160px;
+  text-align: center;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.089);
+  background-color: #f8f8ff		;
+}
+.guess-container img {
+  width: 120px;
+  height: 120px;
+  
+}
+.guess-container p{
+  text-transform: capitalize;
+}
+.infinite-scroll-component__outerdiv a{
+  display:flex;
+  align-items: center;
+  justify-content: center;
+ 
 }
