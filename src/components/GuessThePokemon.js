@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
-import Confetti from 'react-confetti'
+import Confetti from "react-confetti";
+import { Keyboard } from "./Keyboard";
 import {
-    useWindowSize,
-    useWindowWidth,
-    useWindowHeight,
-  } from '@react-hook/window-size'
+  useWindowSize,
+  useWindowWidth,
+  useWindowHeight,
+} from "@react-hook/window-size";
 function GuessThePokemon() {
-    const { width, height } = useWindowSize()
+  const { width, height } = useWindowSize();
   const [pokemon, setPokemon] = useState(null);
   const [displayedName, setDisplayedName] = useState("");
   const [inputValue, setInputValue] = useState("");
@@ -30,7 +31,9 @@ function GuessThePokemon() {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (inputValue.toLowerCase() === pokemon.name) {
-      setMessage("You guessed correctly! The Pokemon was " + pokemon.name + ".");
+      setMessage(
+        "You guessed correctly! The Pokemon was " + pokemon.name + "."
+      );
       setInputValue("");
     } else {
       setMessage("Incorrect guess. Try again!");
@@ -40,27 +43,37 @@ function GuessThePokemon() {
 
   return (
     <div className="guess-container">
-    <div>
-      <h1>Guess the Pokemon!</h1>
-      {pokemon && (
-        <div>
-            <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.url.split("/")[6]}.png`} alt={pokemon.name} />
-          <form onSubmit={handleSubmit}></form>
-          <h2>{displayedName}</h2>
-          <form onSubmit={handleSubmit}>
-            <input type="text" value={inputValue} onChange={handleChange} />
-            <button type="submit">Guess</button>
-          </form>
-          {message  && <p>{message}<Confetti
-      width={width}
-      height={height}
-    /></p>}
-        </div>
-      )}
-    </div>
+      <div>
+        <h1>Guess the Pokemon!</h1>
+        {pokemon && (
+          <div>
+            <img
+              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
+                pokemon.url.split("/")[6]
+              }.png`}
+              alt={pokemon.name}
+            />
+            <form onSubmit={handleSubmit}></form>
+            <h2>{displayedName}</h2>
+            <form onSubmit={handleSubmit}>
+              <input type="text" value={inputValue} onChange={handleChange} />
+              <button type="submit">Guess</button>
+            </form>
+            {message && (
+              <p>
+                {message}
+                <Confetti width={width} height={height} />
+              </p>
+            )}
+          </div>
+        )}
+      </div>
+      
+        {" "}
+        <Keyboard />{" "}
+      
     </div>
   );
-  
 }
 
 export default GuessThePokemon;

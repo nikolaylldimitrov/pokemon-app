@@ -108,9 +108,3 @@ color:black;
 .guess-container p{
   text-transform: capitalize;
 }
-.infinite-scroll-component__outerdiv a{
-  display:flex;
-  align-items: center;
-  justify-content: center;
- 
-}
