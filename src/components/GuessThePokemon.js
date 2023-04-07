@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
-import Confetti from "react-confetti";
+
 import { Keyboard } from "./Keyboard";
-import {
-  useWindowSize,
-  useWindowWidth,
-  useWindowHeight,
-} from "@react-hook/window-size";
+import { Key } from "react";
+
 function GuessThePokemon() {
-  const { width, height } = useWindowSize();
   const [pokemon, setPokemon] = useState(null);
   const [displayedName, setDisplayedName] = useState("");
   const [inputValue, setInputValue] = useState("");
   const [message, setMessage] = useState("");
+  const [guesses, setGuesses] = useState([]);
+
+  console.log(pokemon?.name);
+  const disabled= inputValue.length!==(pokemon?.name||'').length;
 
   useEffect(() => {
     fetch("https://pokeapi.co/api/v2/pokemon?limit=100")
@@ -29,22 +29,58 @@ function GuessThePokemon() {
   };
 
   const handleSubmit = (event) => {
-    event.preventDefault();
+    if (event) {
+      event.preventDefault();
+    }
+    const currentGuess = Array.from(inputValue).map((letter, index) => ({
+      letter,
+      isCorrect: pokemon.name[index] === letter,
+      isPresent: pokemon.name.indexOf(letter) !== -1,
+    }));
+    const allGuesses = guesses.concat([currentGuess]);
+    setGuesses(allGuesses);
     if (inputValue.toLowerCase() === pokemon.name) {
       setMessage(
         "You guessed correctly! The Pokemon was " + pokemon.name + "."
       );
+
       setInputValue("");
     } else {
       setMessage("Incorrect guess. Try again!");
       setInputValue("");
     }
   };
+  
+  const updateFromKeyboard =(text)=>{
+    let pokemonName=text;
+    if(text.length > pokemon.name.length){
+      pokemonName= pokemonName.slice(0, pokemon.name.length);
+    }
+    setInputValue(pokemonName);
 
+  }
+  if (!pokemon) {
+    return <div> Loading </div>;
+  }
+  const myGuesses = guesses.map((g) => {
+    return (
+      <div className="guess-board">
+        {g.map(({ letter, isCorrect, isPresent }) => {
+          return (
+            <span className={isCorrect ? "green" : isPresent ? "yellow" : ""}>
+              {letter}
+            </span>
+          );
+        })}
+      </div>
+    );
+  });
   return (
     <div className="guess-container">
       <div>
         <h1>Guess the Pokemon!</h1>
+        {myGuesses}
+
         {pokemon && (
           <div>
             <img
@@ -56,22 +92,27 @@ function GuessThePokemon() {
             <form onSubmit={handleSubmit}></form>
             <h2>{displayedName}</h2>
             <form onSubmit={handleSubmit}>
-              <input type="text" value={inputValue} onChange={handleChange} />
-              <button type="submit">Guess</button>
+              <input
+                type="text"
+                value={inputValue}
+                onChange={handleChange}
+                minLength={pokemon.name.length}
+                maxLength={pokemon.name.length}
+              />
+              <button type="submit" disabled={disabled}>Guess</button>
             </form>
-            {message && (
-              <p>
-                {message}
-                <Confetti width={width} height={height} />
-              </p>
-            )}
+            {message && <p>{message}</p>}
           </div>
         )}
-      </div>
-      
-        {" "}
-        <Keyboard />{" "}
-      
+      </div>{" "}
+      <Keyboard
+        userInput={inputValue}
+        setUserInput={updateFromKeyboard}
+        onEnter={handleSubmit}
+        pokemonName={pokemon.name}
+        disabled={disabled}
+        
+      />{" "}
     </div>
   );
 }

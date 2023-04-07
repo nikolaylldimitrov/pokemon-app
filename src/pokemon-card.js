@@ -42,17 +42,15 @@ export function App() {
               height: 500,
               overflow: "auto",
               display: "flex",
-              flexDirection: "column-reverse", 
+              flexDirection: "column-reverse",
             }}
           >
             <InfiniteScroll
               dataLength={allPokemons.lenght || 24}
               next={getAllPokemons}
-              //style={{ display: "flex", }} //To put endMessage and loader to the top.
-              inverse={true} //
+              //style={{ display: "flex", }} //To put endMessage and loader to the top. //
               hasMore={true}
               loader={<h4>Loading...</h4>}
-              scrollableTarget="scrollableDiv"
             >
               {allPokemons.map((pokemonStats, index) => (
                 <Link to={`/pokemon/${pokemonStats.id}`}>
