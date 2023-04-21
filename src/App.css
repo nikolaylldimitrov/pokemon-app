@@ -58,6 +58,7 @@ h3 {
 
 a:-webkit-any-link {
   color: black;
+  text-decoration: none
 }
 
 .stats {
@@ -77,16 +78,22 @@ a:-webkit-any-link {
 }
 
 .backButton {
-  width: 45px;
-  height: 25px;
-  position: relative;
-  top: 50%;
-  background-color: #ff7f50;
-  color: #000000;
-  font-size: medium;
-  border-radius: 8px;
-  text-align: center;
-  border: 0.5px solid black;
+  border-radius: 0.2rem;
+  border-style: solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition-duration: 0.4s;
+  background-color: #ffcc00;
+  width: 150px;
+  height: 55px;
+  margin: 5px;
+
+}
+
+.backButton button:hover {
+  background-color: white;
+
 }
 
 .detailsPage-content {
@@ -127,8 +134,8 @@ a:-webkit-any-link {
 }
 
 .key {
-  width: 50px;
-  height: 50px;
+  width: 60px;
+  height: 60px;
   margin: 5px;
   border-radius: 4px;
   display: grid;
@@ -141,7 +148,6 @@ a:-webkit-any-link {
 
 .key-line {
   display: flex;
-
   flex-direction: row;
   justify-content: center;
   margin: 5px;
@@ -183,5 +189,45 @@ a:-webkit-any-link {
   font-size: large;
   align-items: center;
   text-transform: capitalize;
+
+}
+
+.pokemon-card-navbar {
+
+  border-style: solid;
+  border-radius: 0.2rem;
+  background-color: #0075BE;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.089);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pokemon-card-navbar ul {
+  list-style-type: none;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pokemon-card-navbar li {
+  border-style: solid;
+  border-radius: 0.2rem;
+  font-size: 16pt;
+}
+
+.pokemon-card-navbar button {
+  transition-duration: 0.4s;
+  background-color: #ffcc00;
+  width: 200px;
+  height: 55px;
+  margin: 5px;
+  font-weight: 800;
+
+}
+
+.pokemon-card-navbar button:hover {
+  background-color: white;
 
 }

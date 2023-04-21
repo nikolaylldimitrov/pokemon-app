@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-
+import { Link } from "react-router-dom";
 import { Keyboard } from "./Keyboard";
-import { Key } from "react";
 
 function GuessThePokemon() {
   const [pokemon, setPokemon] = useState(null);
@@ -11,7 +10,7 @@ function GuessThePokemon() {
   const [guesses, setGuesses] = useState([]);
 
   console.log(pokemon?.name);
-  const disabled= inputValue.length!==(pokemon?.name||'').length;
+  const disabled = inputValue.length !== (pokemon?.name || "").length;
 
   useEffect(() => {
     fetch("https://pokeapi.co/api/v2/pokemon?limit=100")
@@ -32,10 +31,11 @@ function GuessThePokemon() {
     if (event) {
       event.preventDefault();
     }
+  
     const currentGuess = Array.from(inputValue).map((letter, index) => ({
       letter,
-      isCorrect: pokemon.name[index] === letter,
-      isPresent: pokemon.name.indexOf(letter) !== -1,
+      isCorrect: pokemon.name[index].toLowerCase() === letter.toLowerCase(),
+      isPresent: pokemon.name.indexOf(letter.toLowerCase()) !== -1,
     }));
     const allGuesses = guesses.concat([currentGuess]);
     setGuesses(allGuesses);
@@ -48,26 +48,27 @@ function GuessThePokemon() {
     } else {
       setMessage("Incorrect guess. Try again!");
       setInputValue("");
+      
     }
   };
-  
-  const updateFromKeyboard =(text)=>{
-    let pokemonName=text;
-    if(text.length > pokemon.name.length){
-      pokemonName= pokemonName.slice(0, pokemon.name.length);
+
+  const updateFromKeyboard = (text) => {
+    let pokemonName = text;
+    if (text.length > pokemon.name.length) {
+      pokemonName = pokemonName.slice(0, pokemon.name.length);
     }
     setInputValue(pokemonName);
-
-  }
+  };
   if (!pokemon) {
     return <div> Loading </div>;
   }
-  const myGuesses = guesses.map((g) => {
+  console.log(guesses)
+  const myGuesses = guesses.map((g, i) => {
     return (
-      <div className="guess-board">
-        {g.map(({ letter, isCorrect, isPresent }) => {
+      <div className="guess-board" key={i}>
+        {g.map(({ letter, isCorrect, isPresent  },index) => {
           return (
-            <span className={isCorrect ? "green" : isPresent ? "yellow" : ""}>
+            <span className={isCorrect ? "green" : isPresent ? "yellow" : "" } key={index}>
               {letter}
             </span>
           );
@@ -77,6 +78,9 @@ function GuessThePokemon() {
   });
   return (
     <div className="guess-container">
+      <Link to={`/`}>
+        <div className="backButton"> Back </div>
+      </Link>
       <div>
         <h1>Guess the Pokemon!</h1>
         {myGuesses}
@@ -99,7 +103,9 @@ function GuessThePokemon() {
                 minLength={pokemon.name.length}
                 maxLength={pokemon.name.length}
               />
-              <button type="submit" disabled={disabled}>Guess</button>
+              <button type="submit" disabled={disabled}>
+                Guess
+              </button>
             </form>
             {message && <p>{message}</p>}
           </div>
@@ -111,6 +117,10 @@ function GuessThePokemon() {
         onEnter={handleSubmit}
         pokemonName={pokemon.name}
         disabled={disabled}
+        guesses={guesses}
+        setGuesses={setGuesses}
+
+       
         
       />{" "}
     </div>
