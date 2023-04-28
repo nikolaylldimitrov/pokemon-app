@@ -40,6 +40,7 @@ export const PokemonDetailPage = () => {
             type={detailPokemon.types[0].type.name}
           />
         </div>
+        <div className="pokemonDetails-container">
         <PokemonDetails
           height={detailPokemon.height}
           weight={detailPokemon.weight}
@@ -48,6 +49,7 @@ export const PokemonDetailPage = () => {
           defense={detailPokemon.stats[2].base_stat}
           speed={detailPokemon.stats[5].base_stat}
         />
+        </div>
       </div>
     </div>
   );

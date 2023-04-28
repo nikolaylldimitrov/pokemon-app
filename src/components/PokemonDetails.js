@@ -10,32 +10,26 @@ export const PokemonDetails = ({
 }) => {
   return (
     <div className="stats">
-        
-      <table>
-        <tr>
-          <td>Height</td>
-          <td>{height / 10}meters</td>
-        </tr>
-        <tr>
-          <td>Weight:</td>
-          <td>{weight / 10}kilograms</td>
-        </tr>
-        <tr>
-          <td> HP:</td>
-          <td>{hp}</td>
-        </tr>
-        <td>Attack:</td>
-        <td>{attack}</td>
-        <tr>
-       <td> Defense:</td>
-       <td>{defense}</td>
-        </tr>
-        <tr>
-        <td>Speed:</td>
-        <td>{speed}</td>
-        </tr>
-      </table>
-      
+      <h1>Stats:</h1>
+      Height: <div className="stats-height">
+                {height / 10}meters
+        </div>
+        Weight: <div className="stats-weight">
+       {weight / 10}kilograms
+        </div>
+      HP:<div className="stats-hp">
+         {hp}
+      </div>
+      Attack:<div className="stats-attack">
+        {attack}
+      </div>
+      Defense: <div className="stats-deffense">
+        {defense}
+      </div>
+      Speed: <div className="stats-speed">
+        {speed}
+      </div>
+
     </div>
   );
 };

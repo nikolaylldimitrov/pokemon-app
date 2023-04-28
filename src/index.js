@@ -21,7 +21,7 @@ const router = createBrowserRouter([
       element: < PokemonDetailPage />,
     },
     {
-      path: "/1",
+      path: "/guess-the-pokemon",
       element: < GuessThePokemon />,
     },
  ]);
