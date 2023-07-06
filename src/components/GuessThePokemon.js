@@ -157,6 +157,7 @@ function GuessThePokemon() {
         guesses={guesses}
         setGuesses={setGuesses}
       />{" "}
+      <HowToPlay />
     </div>
   );
 }
