@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Keyboard } from "./Keyboard";
+import Confetti from "react-confetti";
+import { HowToPlay } from "./gameinstructions";
 
 function GuessThePokemon() {
   const [pokemon, setPokemon] = useState(null);
@@ -8,8 +10,9 @@ function GuessThePokemon() {
   const [inputValue, setInputValue] = useState("");
   const [message, setMessage] = useState("");
   const [guesses, setGuesses] = useState([]);
+  const [gameOver, setGameOver] = useState(false);
+  const [correctGuess, setCorrectGuess] = useState(false);
 
-  console.log(pokemon?.name);
   const disabled = inputValue.length !== (pokemon?.name || "").length;
 
   useEffect(() => {
@@ -31,7 +34,7 @@ function GuessThePokemon() {
     if (event) {
       event.preventDefault();
     }
-  
+
     const currentGuess = Array.from(inputValue).map((letter, index) => ({
       letter,
       isCorrect: pokemon.name[index].toLowerCase() === letter.toLowerCase(),
@@ -43,12 +46,15 @@ function GuessThePokemon() {
       setMessage(
         "You guessed correctly! The Pokemon was " + pokemon.name + "."
       );
-
       setInputValue("");
+      setCorrectGuess(true);
     } else {
-      setMessage("Incorrect guess. Try again!");
       setInputValue("");
-      
+      if (guesses.length === 4) {
+        setGameOver(true);
+      } else {
+        setMessage("Incorrect guess. Try again!");
+      }
     }
   };
 
@@ -62,13 +68,34 @@ function GuessThePokemon() {
   if (!pokemon) {
     return <div> Loading </div>;
   }
-  console.log(guesses)
+  const handleNewGame = () => {
+    setPokemon(null);
+    setDisplayedName("");
+    setInputValue("");
+    setMessage("");
+    setGuesses([]);
+    setGameOver(false);
+    setCorrectGuess(false);
+
+    fetch("https://pokeapi.co/api/v2/pokemon?limit=100")
+      .then((response) => response.json())
+      .then((data) => {
+        const randomIndex = Math.floor(Math.random() * data.results.length);
+        const randomPokemon = data.results[randomIndex];
+        setPokemon(randomPokemon);
+        setDisplayedName("*".repeat(randomPokemon.name.length));
+      });
+  };
+
   const myGuesses = guesses.map((g, i) => {
     return (
       <div className="guess-board" key={i}>
-        {g.map(({ letter, isCorrect, isPresent  },index) => {
+        {g.map(({ letter, isCorrect, isPresent }, index) => {
           return (
-            <span className={isCorrect ? "green" : isPresent ? "yellow" : "" } key={index}>
+            <span
+              className={isCorrect ? "green" : isPresent ? "yellow" : ""}
+              key={index}
+            >
               {letter}
             </span>
           );
@@ -87,27 +114,37 @@ function GuessThePokemon() {
 
         {pokemon && (
           <div>
+            {correctGuess && <Confetti />}
             <img
               src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
                 pokemon.url.split("/")[6]
               }.png`}
               alt={pokemon.name}
             />
+
             <form onSubmit={handleSubmit}></form>
             <h2>{displayedName}</h2>
-            <form onSubmit={handleSubmit}>
-              <input
-                type="text"
-                value={inputValue}
-                onChange={handleChange}
-                minLength={pokemon.name.length}
-                maxLength={pokemon.name.length}
-              />
-              <button type="submit" disabled={disabled}>
-                Guess
-              </button>
-            </form>
+            {gameOver ? (
+              <div>
+                <p>Game Over! You did not guess correctly within 5 tries.</p>
+                <button onClick={handleNewGame}>New Game</button>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit}>
+                <input
+                  type="text"
+                  value={inputValue}
+                  onChange={handleChange}
+                  minLength={pokemon.name.length}
+                  maxLength={pokemon.name.length}
+                />
+                <button type="submit" disabled={disabled}>
+                  Guess
+                </button>
+              </form>
+            )}
             {message && <p>{message}</p>}
+            {correctGuess && <button onClick={handleNewGame}>New Game</button>}
           </div>
         )}
       </div>{" "}
@@ -119,9 +156,6 @@ function GuessThePokemon() {
         disabled={disabled}
         guesses={guesses}
         setGuesses={setGuesses}
-
-       
-        
       />{" "}
     </div>
   );

@@ -5,7 +5,6 @@ import { PokemonThumb } from "./PokemonThumnail";
 import { Link } from "react-router-dom";
 import { PokemonDetails } from "./PokemonDetails";
 
-
 export const PokemonDetailPage = () => {
   const { id } = useParams();
   const [detailPokemon, setDetailPokemon] = useState(null);
@@ -31,7 +30,7 @@ export const PokemonDetailPage = () => {
       <Link to={`/`}>
         <div className="backButton"> Back </div>
       </Link>
-      <div className='detailsPage-content'>
+      <div className="detailsPage-content">
         <div className="pokeDetail-container">
           <PokemonThumb
             id={id}
@@ -41,14 +40,14 @@ export const PokemonDetailPage = () => {
           />
         </div>
         <div className="pokemonDetails-container">
-        <PokemonDetails
-          height={detailPokemon.height}
-          weight={detailPokemon.weight}
-          hp={detailPokemon.stats[0].base_stat}
-          attack={detailPokemon.stats[1].base_stat}
-          defense={detailPokemon.stats[2].base_stat}
-          speed={detailPokemon.stats[5].base_stat}
-        />
+          <PokemonDetails
+            height={detailPokemon.height}
+            weight={detailPokemon.weight}
+            hp={detailPokemon.stats[0].base_stat}
+            attack={detailPokemon.stats[1].base_stat}
+            defense={detailPokemon.stats[2].base_stat}
+            speed={detailPokemon.stats[5].base_stat}
+          />
         </div>
       </div>
     </div>

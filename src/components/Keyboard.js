@@ -17,16 +17,16 @@ export function Keyboard({
   const handleEnter = (event) => {
     onEnter();
   };
+  const handleDel = (event) => {
+    setUserInput(userInput.slice(0, -1));
+  };
 
-  
   guesses.forEach((g) => {
     g.forEach((guess) => {
       keyConfig.filter((key) => {
-       
         return key.name === guess.letter.toUpperCase();
-     
-      })[0].state=guess.isCorrect && "green" || guess.isPresent && "yellow" || ""
-      ;
+      })[0].state =
+        (guess.isCorrect && "green") || (guess.isPresent && "yellow") || "";
     });
   });
 
@@ -44,10 +44,20 @@ export function Keyboard({
       </div>
       <div className="key-line">
         {keyConfig.slice(19, 20).map((key) => {
-          return <Key keyVal={key} disabled={disabled} onClick={handleEnter} key={key.name} />;
+          return (
+            <Key
+              keyVal={key}
+              disabled={disabled}
+              onClick={handleEnter}
+              key={key.name}
+            />
+          );
         })}
         {keyConfig.slice(20, 27).map((key) => {
           return <Key keyVal={key} onClick={handleClick} key={key.name} />;
+        })}
+        {keyConfig.slice(27, 28).map((key) => {
+          return <Key keyVal={key} onClick={handleDel} key={key.name} />;
         })}
       </div>
     </div>

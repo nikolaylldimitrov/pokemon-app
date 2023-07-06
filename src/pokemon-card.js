@@ -4,7 +4,6 @@ import { useState } from "react";
 import { PokemonThumb } from "./components/PokemonThumnail";
 import { Link } from "react-router-dom";
 
-
 export function App() {
   const [allPokemons, setAllPokemons] = useState([]);
   const [page, setPage] = useState(0);
@@ -30,48 +29,47 @@ export function App() {
     getAllPokemons();
   }, []);
 
-  const handleScroll = () =>{
-    const {scrollTop, clientHeight, scrollHeight} = document.documentElement;
-    if(scrollTop + clientHeight >=scrollHeight){
+  const handleScroll = () => {
+    const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
+    if (scrollTop + clientHeight >= scrollHeight) {
       getAllPokemons();
     }
   };
-  useEffect(()=>{
-   window.addEventListener("scroll", handleScroll);
-   return()=> window.removeEventListener("scroll", handleScroll);
-  },[page]);
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [page]);
 
   return (
     <>
-    <nav className="pokemon-card-navbar">
-      <ul>
-        <button>
-          <Link to="/">Home</Link>
-        </button>
-        <button>
-          <Link to="/guess-the-pokemon"> Play </Link>
-        </button>
-      </ul>
-    </nav>
-    <div className="main-container" onScroll={handleScroll}>
-      <div className="pokemon-container" onScroll={handleScroll}>
-        <h1>Pokemon Deck</h1>
+      <nav className="pokemon-card-navbar">
+        <ul>
+          <Link to="/">
+            <button>Home</button>{" "}
+          </Link>
+          <Link to="/guess-the-pokemon">
+            <button>Play</button>
+          </Link>
+        </ul>
+      </nav>
+      <div className="main-container" onScroll={handleScroll}>
+        <div className="pokemon-container" onScroll={handleScroll}>
+          <h1>Pokemon Deck</h1>
 
-        <div className="all-container" onScroll={handleScroll}>
-          {allPokemons.map((pokemonStats, index) => (
-            <Link to={`/pokemon/${pokemonStats.id}`} key={index} >
-              <PokemonThumb
-                id={pokemonStats.id}
-                image={pokemonStats.sprites.other.dream_world.front_default}
-                name={pokemonStats.name}
-                type={pokemonStats.types[0].type.name}
-              />{" "}
-            </Link>
-          ))}{" "}
+          <div className="all-container" onScroll={handleScroll}>
+            {allPokemons.map((pokemonStats, index) => (
+              <Link to={`/pokemon/${pokemonStats.id}`} key={index}>
+                <PokemonThumb
+                  id={pokemonStats.id}
+                  image={pokemonStats.sprites.other.dream_world.front_default}
+                  name={pokemonStats.name}
+                  type={pokemonStats.types[0].type.name}
+                />{" "}
+              </Link>
+            ))}{" "}
+          </div>
         </div>
-        
       </div>
-    </div>
     </>
   );
 }

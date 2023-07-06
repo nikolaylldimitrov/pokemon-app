@@ -223,6 +223,7 @@ a:-webkit-any-link {
   height: 55px;
   margin: 5px;
   font-weight: 800;
+  cursor:pointer;
 
 }
 
@@ -312,4 +313,39 @@ a:-webkit-any-link {
   border-radius: 6px;
   border-color: black;
   border-style:solid;
+}
+.example-box{
+  display:inline-block;
+  width: 32px;
+  height: 32px;
+  margin-right:4px;
+  border-style:solid;
+  border-color: black;
+  padding: 2px;
+  font-size: 1.6rem;
+}
+.green-example-box{
+  background-color: green;
+}
+.yellow-example-box{
+  background-color: orange;
+}
+.grey-example-box{
+  background-color: grey;
+}
+.instr-container{
+  position:absolute;
+  background-color: #f8f8ff;
+ z-index:  99999;
+  border-style: solid;
+ 
+}
+.close-btn{
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  font-size:24px;
+}
+.instr-container li{
+  text-align:left;
 }
