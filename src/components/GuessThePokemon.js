@@ -12,6 +12,7 @@ function GuessThePokemon() {
   const [guesses, setGuesses] = useState([]);
   const [gameOver, setGameOver] = useState(false);
   const [correctGuess, setCorrectGuess] = useState(false);
+  const [showInstructions, setShowInstructions] = useState(false);
 
   const disabled = inputValue.length !== (pokemon?.name || "").length;
 
@@ -96,6 +97,9 @@ function GuessThePokemon() {
     return false;
   };
 
+  const showIntructions = (event) => {
+    setShowInstructions(!showInstructions);
+  };
   const myGuesses = guesses.map((g, i) => {
     return (
       <div className="guess-board" key={i}>
@@ -117,6 +121,9 @@ function GuessThePokemon() {
       <Link to={`/`}>
         <div className="backButton"> Back </div>
       </Link>
+      <button className="backButton" onClick={showIntructions}>
+        Instructions
+      </button>
       <div>
         <h1>Guess the Pokemon!</h1>
         {myGuesses}
@@ -134,9 +141,11 @@ function GuessThePokemon() {
             <form onSubmit={handleSubmit}></form>
             <h2>{displayedName}</h2>
             {gameOver ? (
-              <div>
+              <div className="new-game">
                 <p>Game Over! You did not guess correctly within 5 tries.</p>
-                <button onClick={handleNewGame}>New Game</button>
+                <button className="backButton small " onClick={handleNewGame}>
+                  New Game
+                </button>
               </div>
             ) : (
               <form onSubmit={handleSubmit}>
@@ -154,7 +163,11 @@ function GuessThePokemon() {
               </form>
             )}
             {message && <p>{message}</p>}
-            {correctGuess && <button onClick={handleNewGame}>New Game</button>}
+            {correctGuess && (
+              <button className="backButton small " onClick={handleNewGame}>
+                New Game
+              </button>
+            )}
           </div>
         )}
       </div>{" "}
@@ -167,7 +180,10 @@ function GuessThePokemon() {
         guesses={guesses}
         setGuesses={setGuesses}
       />{" "}
-      <HowToPlay />
+      <HowToPlay
+        showInstructions={showInstructions}
+        updateShowIntructions={showIntructions}
+      />
     </div>
   );
 }

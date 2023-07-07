@@ -351,3 +351,13 @@ a:-webkit-any-link {
 .instr-container li{
   text-align:left;
 }
+.backButton.small {
+  width:90px;
+  height:60px;
+  font-weight: 700;
+}
+.new-game{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}

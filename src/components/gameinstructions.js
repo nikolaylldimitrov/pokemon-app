@@ -1,16 +1,23 @@
 import { useRef, useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 
-export function HowToPlay() {
-  const instrRef = useRef();
+export function HowToPlay({ showInstructions, updateShowIntructions }) {
   const [isVisible, setIsVisible] = useState(true);
 
   const toggleVisibility = () => {
     setIsVisible(!isVisible);
+    localStorage.setItem("overlayerClosed", Date.now());
+    updateShowIntructions();
   };
+  let recentlyShown = false;
+  const closed = localStorage.getItem("overlayerClosed");
+  if (closed && (Date.now() - closed) / 1000 / 60 < 5) {
+    recentlyShown = true;
+  }
+  const visible = showInstructions || (isVisible && !recentlyShown);
   return (
     <>
-      {isVisible && (
+      {visible && (
         <div className="instr-container">
           <h1> How to play</h1>
           <button className="close-btn" onClick={toggleVisibility}>

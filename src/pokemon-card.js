@@ -12,7 +12,6 @@ export function App() {
     const res = await fetch(url + `&offset=${page * 24}`);
     const data = await res.json();
     setPage(page + 1);
-    console.log(data);
 
     function createPokemonObject(results) {
       results.forEach(async (pokemon) => {
