@@ -86,6 +86,15 @@ function GuessThePokemon() {
         setDisplayedName("*".repeat(randomPokemon.name.length));
       });
   };
+  const handleKey = (event) => {
+    const keyCode = event.keyCode;
+
+    if ((keyCode >= 65 && keyCode <= 90) || keyCode === 8 || keyCode === 13) {
+      return true;
+    }
+    event.preventDefault();
+    return false;
+  };
 
   const myGuesses = guesses.map((g, i) => {
     return (
@@ -133,6 +142,7 @@ function GuessThePokemon() {
               <form onSubmit={handleSubmit}>
                 <input
                   type="text"
+                  onKeyDown={handleKey}
                   value={inputValue}
                   onChange={handleChange}
                   minLength={pokemon.name.length}
