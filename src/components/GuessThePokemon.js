@@ -121,9 +121,9 @@ function GuessThePokemon() {
       <Link to={`/`}>
         <div className="backButton"> Back </div>
       </Link>
-      <button className="backButton" onClick={showIntructions}>
+      <a className="backButton" onClick={showIntructions}>
         Instructions
-      </button>
+      </a>
       <div>
         <h1>Guess the Pokemon!</h1>
         {myGuesses}

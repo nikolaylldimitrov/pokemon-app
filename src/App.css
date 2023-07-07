@@ -82,7 +82,13 @@ a:-webkit-any-link {
   width: 150px;
   height: 55px;
   margin: 5px;
+  cursor: pointer;
+ 
 
+}
+button.backButton{
+border-color: black;
+font-weight: 700;
 }
 
 .backButton button:hover {
