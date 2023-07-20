@@ -135,7 +135,13 @@ font-weight: 700;
     border-style: solid;
     border-color: grey;
     border-radius: 5px;
+    
 
+}
+@media (max-width: 767px) {
+  .keyboard {
+    display: none;
+  }
 }
 
 .key {
@@ -206,6 +212,8 @@ font-weight: 700;
   display: flex;
   align-items: center;
   justify-content: center;
+  position:sticky;
+  top:0;
 }
 
 .pokemon-card-navbar ul {
@@ -366,4 +374,19 @@ font-weight: 700;
   display: flex;
   align-items: center;
   flex-direction: column;
+}
+.history{
+  display: flex;
+  margin: 2px;
+  padding:2px;
+}
+.win{
+  color:green;
+  font-weight: 700;
+  font-size:18px;
+}
+.lose{
+  color:red;
+  font-weight: 700;
+  font-size:18px;
 }

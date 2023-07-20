@@ -13,10 +13,13 @@ function GuessThePokemon() {
   const [gameOver, setGameOver] = useState(false);
   const [correctGuess, setCorrectGuess] = useState(false);
   const [showInstructions, setShowInstructions] = useState(false);
+  const [wins, setWins] = useState(0);
+  const [losses, setLosses] = useState(0);
 
   const disabled = inputValue.length !== (pokemon?.name || "").length;
 
   useEffect(() => {
+    loadHistoryFromLocalStorage();
     fetch("https://pokeapi.co/api/v2/pokemon?limit=100")
       .then((response) => response.json())
       .then((data) => {
@@ -26,7 +29,22 @@ function GuessThePokemon() {
         setDisplayedName("*".repeat(randomPokemon.name.length));
       });
   }, []);
+  useEffect(() => {
+    saveHistoryToLocalStorage();
+  }, [wins, losses]);
 
+  const loadHistoryFromLocalStorage = () => {
+    const winsFromStorage = localStorage.getItem("pokemonGameWins");
+    const lossesFromStorage = localStorage.getItem("pokemonGameLosses");
+
+    setWins(winsFromStorage ? parseInt(winsFromStorage) : 0);
+    setLosses(lossesFromStorage ? parseInt(lossesFromStorage) : 0);
+  };
+
+  const saveHistoryToLocalStorage = () => {
+    localStorage.setItem("pokemonGameWins", wins);
+    localStorage.setItem("pokemonGameLosses", losses);
+  };
   const handleChange = (event) => {
     setInputValue(event.target.value);
   };
@@ -49,10 +67,12 @@ function GuessThePokemon() {
       );
       setInputValue("");
       setCorrectGuess(true);
+      setWins((prevWins) => prevWins + 1);
     } else {
       setInputValue("");
       if (guesses.length === 4) {
         setGameOver(true);
+        setLosses((prevLosses) => prevLosses + 1);
       } else {
         setMessage("Incorrect guess. Try again!");
       }
@@ -124,6 +144,12 @@ function GuessThePokemon() {
       <a className="backButton" onClick={showIntructions}>
         Instructions
       </a>
+      <h3>History</h3>
+      <div className="history">
+        <p className="win">Wins:{wins} &nbsp;&nbsp;</p>
+        <p></p>
+        <p className="lose"> Losses: {losses}</p>
+      </div>
       <div>
         <h1>Guess the Pokemon!</h1>
         {myGuesses}

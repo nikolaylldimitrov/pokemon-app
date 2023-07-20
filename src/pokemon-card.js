@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 export function App() {
   const [allPokemons, setAllPokemons] = useState([]);
   const [page, setPage] = useState(0);
+
   const url = `https://pokeapi.co/api/v2/pokemon?limit=24`;
   const getAllPokemons = async () => {
     const res = await fetch(url + `&offset=${page * 24}`);
@@ -30,7 +31,7 @@ export function App() {
 
   const handleScroll = () => {
     const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
-    if (scrollTop + clientHeight >= scrollHeight) {
+    if (scrollTop + clientHeight >= scrollHeight - 100) {
       getAllPokemons();
     }
   };
@@ -39,13 +40,15 @@ export function App() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [page]);
 
+  const handleHomeButtonClick = () => {
+    window.scrollTo(0, 0);
+  };
+
   return (
     <>
       <nav className="pokemon-card-navbar">
         <ul>
-          <Link to="/">
-            <button>Home</button>{" "}
-          </Link>
+          <button onClick={handleHomeButtonClick}>Home</button>{" "}
           <Link to="/guess-the-pokemon">
             <button>Play</button>
           </Link>
