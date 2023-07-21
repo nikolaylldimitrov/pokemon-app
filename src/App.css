@@ -215,25 +215,8 @@ font-weight: 700;
   position:sticky;
   top:0;
 }
-@media (max-width: 767px) {
-  .pokemon-card-navbar {
- margin:0;
-  }
-}
 
-.pokemon-card-navbar ul {
-  list-style-type: none;
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 
-.pokemon-card-navbar li {
-  border-style: solid;
-  border-radius: 0.2rem;
-  font-size: 16pt;
-}
 
 .pokemon-card-navbar button {
   transition-duration: 0.4s;
@@ -244,6 +227,12 @@ font-weight: 700;
   font-weight: 800;
   cursor:pointer;
 
+}
+@media (max-width: 767px) {
+  .pokemon-card-navbar button {
+  width:140px;
+ 
+  }
 }
 
 .pokemon-card-navbar button:hover {

@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { PokemonThumb } from "./components/PokemonThumnail";
 import { Link } from "react-router-dom";
+import NavBar from "./components/pokemonNavHeader";
 
 export function App() {
   const [allPokemons, setAllPokemons] = useState([]);
@@ -40,20 +41,10 @@ export function App() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [page]);
 
-  const handleHomeButtonClick = () => {
-    window.scrollTo(0, 0);
-  };
-
   return (
     <>
-      <nav className="pokemon-card-navbar">
-        <ul>
-          <button onClick={handleHomeButtonClick}>Home</button>{" "}
-          <Link to="/guess-the-pokemon">
-            <button>Play</button>
-          </Link>
-        </ul>
-      </nav>
+      <NavBar />
+
       <div className="main-container" onScroll={handleScroll}>
         <div className="pokemon-container" onScroll={handleScroll}>
           <h1>Pokemon Deck</h1>
