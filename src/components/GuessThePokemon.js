@@ -137,23 +137,22 @@ function GuessThePokemon() {
     );
   });
   return (
-    <div className="guess-container">
-      <Link to={`/`}>
-        <div className="backButton"> Back </div>
-      </Link>
-      <a className="backButton" onClick={showIntructions}>
-        Instructions
-      </a>
-      <h3>History</h3>
-      <div className="history">
-        <p className="win">Wins:{wins} &nbsp;&nbsp;</p>
-        <p></p>
-        <p className="lose"> Losses: {losses}</p>
-      </div>
-      <div>
+    <div className="guess-flex">
+      <div className="guess-container">
+        <Link to={`/`}>
+          <div className="backButton"> Back </div>
+        </Link>
+        <a className="backButton" onClick={showIntructions}>
+          Instructions
+        </a>
+        <h3>History</h3>
+        <div className="history">
+          <p className="win">Wins:{wins} &nbsp;&nbsp;</p>
+          <p></p>
+          <p className="lose"> Losses: {losses}</p>
+        </div>
         <h1>Guess the Pokemon!</h1>
         {myGuesses}
-
         {pokemon && (
           <div>
             {correctGuess && <Confetti />}
@@ -196,20 +195,20 @@ function GuessThePokemon() {
             )}
           </div>
         )}
+        <Keyboard
+          userInput={inputValue}
+          setUserInput={updateFromKeyboard}
+          onEnter={handleSubmit}
+          pokemonName={pokemon.name}
+          disabled={disabled}
+          guesses={guesses}
+          setGuesses={setGuesses}
+        />{" "}
+        <HowToPlay
+          showInstructions={showInstructions}
+          updateShowIntructions={showIntructions}
+        />
       </div>{" "}
-      <Keyboard
-        userInput={inputValue}
-        setUserInput={updateFromKeyboard}
-        onEnter={handleSubmit}
-        pokemonName={pokemon.name}
-        disabled={disabled}
-        guesses={guesses}
-        setGuesses={setGuesses}
-      />{" "}
-      <HowToPlay
-        showInstructions={showInstructions}
-        updateShowIntructions={showIntructions}
-      />
     </div>
   );
 }
